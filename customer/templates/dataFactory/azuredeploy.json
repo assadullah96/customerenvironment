@@ -934,8 +934,7 @@
                 }
             },
             "dependsOn": [
-                "[parameters('factoryName')]",
-                "[parameters('StorageAccountName')]"
+                "[parameters('factoryName')]"
             ]
         },
         {
