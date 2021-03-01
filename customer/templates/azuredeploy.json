@@ -227,6 +227,9 @@
                     "storageAccountName": {
                         "value": "[variables('storageAccountUniqueName')]"
                     },
+                    "existingOrNewKeyVault":{
+                         "value": "[parameters('existingOrNewKeyVault')]"
+                    },
                     "keyVaultName": {
                         "value": "[variables('keyVaultUniqueName')]"
                     },
