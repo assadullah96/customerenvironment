@@ -23,7 +23,7 @@
         },
 
     "useExistingOrNewKeyVault": {
-        "allowedValues": [ "new", "existing" ],
+        "allowedValues": ["new","existing"],
         "type": "string"
         },
 
