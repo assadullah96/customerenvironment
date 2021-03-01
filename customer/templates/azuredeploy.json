@@ -15,7 +15,7 @@
             "metadata": {}
         },
         "storageAccountName": {
-            "defaultValue": "demoenvsa",
+            "defaultValue": "demoenvsasd",
             "type": "string",
             "metadata": {
                 "description": "The name you provide will be appended with a unique sting to make it globally available. The field can contain only lowercase letters and numbers. Name must be between 1 and 11 characters."
