@@ -92,7 +92,7 @@
     },
 
     {
-            "condition": "[equals(parameters('existingOrNewKeyVault'),'existing')]",  
+            "condition": "[equals(parameters('existingOrNewKeyVault'),'new')]",  
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
             "name": "[parameters('keyVaultName')]",
@@ -128,7 +128,7 @@
         },
 
     {
-          "condition": "[equals(parameters('existingOrNewKeyVault'),'existing')]", 
+          "condition": "[equals(parameters('existingOrNewKeyVault'),'new')]", 
           "type": "Microsoft.KeyVault/vaults/secrets",
           "apiVersion": "2019-09-01",
           "name": "[concat(parameters('keyVaultName'), '/', parameters('secretName'))]",

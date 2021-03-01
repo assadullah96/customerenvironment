@@ -231,7 +231,7 @@
                          "value": "[parameters('existingOrNewKeyVault')]"
                     },
                     "keyVaultName": {
-                        "value": "[variables('keyVaultUniqueName')]"
+                        "value": "[parameters('keyVaultName')]"
                     },
                     "secretName": {
                         "value": "[parameters('secretName')]"
