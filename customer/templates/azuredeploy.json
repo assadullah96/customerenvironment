@@ -33,7 +33,7 @@
                  "description": "The storage account name can contain only lowercase letters and numbers. Name must be between 1 and 11 characters"
             }
         },
-         "existingOrNewKeyVault": {
+        "useExistingOrNewKeyVault": {
             "allowedValues": [ "new", "existing" ],
             "type": "string",
             "metadata": {
@@ -177,8 +177,8 @@
                     "storageAccountName": {
                         "value": "[variables('storageAccountUniqueName')]"
                     },
-                    "existingOrNewKeyVault":{
-                         "value": "[parameters('existingOrNewKeyVault')]"
+                    "useExistingOrNewKeyVault":{
+                         "value": "[parameters('useExistingOrNewKeyVault')]"
                     },
                     "keyVaultName": {
                         "value": "[parameters('keyVaultName')]"
@@ -227,8 +227,8 @@
                     "storageAccountName": {
                         "value": "[variables('storageAccountUniqueName')]"
                     },
-                    "existingOrNewKeyVault":{
-                         "value": "[parameters('existingOrNewKeyVault')]"
+                    "useExistingOrNewKeyVault":{
+                         "value": "[parameters('useExistingOrNewKeyVault')]"
                     },
                     "keyVaultName": {
                         "value": "[parameters('keyVaultName')]"

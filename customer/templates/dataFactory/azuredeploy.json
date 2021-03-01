@@ -22,12 +22,9 @@
           }
         },
 
-    "existingOrNewKeyVault": {
-            "allowedValues": [ "new", "existing" ],
-            "type": "string",
-            "metadata": {
-                "description": "Do you want to create new key vault resource or want to  use same key vault account?"
-            }
+    "useExistingOrNewKeyVault": {
+        "allowedValues": [ "new", "existing" ],
+        "type": "string"
         },
 
     "keyVaultName": {
@@ -92,7 +89,7 @@
     },
 
     {
-            "condition": "[equals(parameters('existingOrNewKeyVault'),'new')]",  
+            "condition": "[equals(parameters('useExistingOrNewKeyVault'),'new')]",  
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
             "name": "[parameters('keyVaultName')]",
@@ -128,7 +125,7 @@
         },
 
     {
-          "condition": "[equals(parameters('existingOrNewKeyVault'),'new')]", 
+          "condition": "[equals(parameters('useExistingOrNewKeyVault'),'new')]", 
           "type": "Microsoft.KeyVault/vaults/secrets",
           "apiVersion": "2019-09-01",
           "name": "[concat(parameters('keyVaultName'), '/', parameters('secretName'))]",
