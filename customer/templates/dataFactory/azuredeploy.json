@@ -159,7 +159,8 @@
             ]
         },
         "dependsOn":[
-                "[parameters('factoryName')]"
+                "[parameters('factoryName')]",
+                "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
             ]
     },
 
