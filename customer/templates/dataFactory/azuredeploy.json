@@ -1,5 +1,5 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "factoryName": {
@@ -23,7 +23,7 @@
         },
 
     "useExistingOrNewKeyVault": {
-        "allowedValues": ["new","existing"],
+        "allowedValues": [ "new", "existing" ],
         "type": "string"
         },
 
@@ -136,7 +136,32 @@
           "properties": {
             "value": "[parameters('secretValue')]"
           }
+    },
+
+    {
+        "condition": "[equals(parameters('useExistingOrNewKeyVault'),'existing')]",  
+        "type": "Microsoft.KeyVault/vaults/accessPolicies",
+        "name": "[concat(parameters('keyVaultName'), '/add')]",
+        "apiVersion": "2019-09-01",
+        "properties": {
+            "accessPolicies": [
+            {
+                "tenantId": "[subscription().tenantId]",
+                "objectId": "[reference(ResourceId(parameters('resourceGroupNameForKeyVault'), 'Microsoft.DataFactory/factories', parameters('factoryName')),'2018-06-01','Full').identity.principalId]",
+                "permissions": {
+                    "keys": [],
+                    "secrets": [
+                        "Get"
+                        ],
+                    "certificates": []
+                }
+            }
+            ]
         },
+        "dependsOn":[
+                "[parameters('factoryName')]"
+            ]
+    },
 
 
     
