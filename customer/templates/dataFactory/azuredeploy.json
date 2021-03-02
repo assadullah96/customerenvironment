@@ -141,7 +141,7 @@
     {
         "condition": "[equals(parameters('useExistingOrNewKeyVault'),'existing')]",  
         "type": "Microsoft.KeyVault/vaults/accessPolicies",
-        "name": "[parameters('keyVaultName')]",
+        "name": "[concat(parameters('keyVaultName'), '/add')]",
         "apiVersion": "2019-09-01",
         "properties": {
             "accessPolicies": [
