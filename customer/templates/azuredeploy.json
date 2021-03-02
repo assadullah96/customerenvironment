@@ -51,6 +51,7 @@
         
         "resourceGroupNameForKeyVault": {
             "type": "string",
+            "defaultValue":"[resourceGroup().name]",
             "metadata": {
                 "description": "Specifies the resource group name to get the application id in keyvault."
             }
