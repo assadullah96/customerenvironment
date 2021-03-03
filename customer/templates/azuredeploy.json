@@ -97,7 +97,12 @@
         "emailForAlerts": {
             "defaultValue": "assadullah@emumba.com",
             "type": "String"
-            }
+            },
+      
+        "StartDate":{
+        "type": "string",
+        "defaultValue": "[utcNow()]"
+    }
 },
 
     "variables": {
@@ -199,6 +204,10 @@
                     "resourceGroupNameForKeyVault":{
                         "value": "[parameters('resourceGroupNameForKeyVault')]"
                     },
+                    "StartDate":{
+                        "value": "[parameters('StartDate')]"
+
+                    },
                     "webHookUri": {
                         "value": "[if(equals(parameters('enableMicrosoftTeamsNotification'),'Yes'), reference('logicAppTemplate','2018-05-01').outputs.WebHookURI.value, 'http://example.com')]"
                     }
@@ -242,6 +251,9 @@
                     },
                     "emailForAlerts": {
                         "value": "[parameters('emailForAlerts')]"
+                    },
+                     "StartDate":{
+                        "value": "[parameters('StartDate')]"
                     },
                     "webHookUri": {
                         "value": "http://example.com"
