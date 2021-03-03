@@ -247,8 +247,8 @@
                                 "type": "DatasetReference",
                                 "parameters": {
                                     "container": "customer",
-                                    "directory": "curated/USA_known_cases/latest",
-                                    "file": "USA_known_cases.csv"
+                                    "directory": "curated/USAFactsKnownCases/latest",
+                                    "file": "USAFactsKnownCases.csv"
                                 }
                             },
                             "fieldList": [
@@ -596,8 +596,8 @@
                                 "type": "DatasetReference",
                                 "parameters": {
                                     "container": "customer",
-                                    "directory": "curated/USA_known_cases/latest",
-                                    "file": "USA_known_cases.csv"
+                                    "directory": "curated/USAFactsKnownCases/latest",
+                                    "file": "USAFactsKnownCases.csv"
                                 }
                             }
                         ],
@@ -811,11 +811,11 @@
                     },
                     "directory": {
                         "type": "string",
-                        "defaultValue": "curated/USA_known_cases/latest"
+                        "defaultValue": "curated/USAFactsKnownCases/latest"
                     },
                     "file": {
                         "type": "string",
-                        "defaultValue": "USA_known_cases.csv"
+                        "defaultValue": "USAFactsKnownCases.csv"
                     }
                 },
                 "folder": {
