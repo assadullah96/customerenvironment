@@ -2,171 +2,113 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "dataFactoryName": {
+        "factoryName": {
             "type": "string",
-            "defaultValue": "demoCustomerADF",
-            "metadata": {
-                "description": "The name you provide will be appended with a unique sting to make it globally available. The name can contain only letters, numbers and hyphens. The first and last characters must be a letter or number. Spaces are not allowed."
+             "defaultValue": "testadfcustomer",
+             "metadata": {
+                "description":"The name of data factory can contain only letters, numbers and hyphens. The first and last characters must be a letter or number. Spaces are not allowed."
             }
-        },
-        "dataFactoryLocation": {
-            "defaultValue": "East US",
-            "type": "string",
-            "metadata": {}
-        },
-        "storageAccountName": {
-            "defaultValue": "demoenvsa",
-            "type": "string",
-            "metadata": {
-                "description": "The name you provide will be appended with a unique sting to make it globally available. The field can contain only lowercase letters and numbers. Name must be between 1 and 11 characters."
-            }
-        },
-        "sasURI": {
-            "type": "string",
-            "defaultValue": "Specify the sasURI of public blob storage"
+           
         },
         "location": {
             "type": "string",
             "defaultValue": "eastus",
             "metadata": {
-                "description": "Deployment region for all resources."
+            "description": "Location of your resources. Default location is eastUS"
+            }
+         },
+
+          "existingOrNewStorage": {
+            "allowedValues": [ "new", "existing" ],
+            "type": "string",
+            "metadata": {
+                "description": "Do you want to create new storage account or use same storage account?"
             }
         },
-        "selectDataLoader": {
+
+        "storageAccountName": {
             "type": "string",
-            "allowedValues": [
-                "SQL Database",
-                "Synapse Database Warehouse",
-                "Both"
-            ],
+            "defaultValue": "demoenvsa",
             "metadata": {
-                "description": "Specify if you want to write the data into SQL database."
-            }
-          },
-        "sqlServerName": {
-            "type": "string",
-            "defaultValue": "democustomerdbserver",
-            "metadata": {
-                "description": "The name you provide will be appended with a unique sting to make it globally available. Your server name can contain only lowercase letters, numbers, and '-', but can't start or end with '-' or have more than 49 characters."
+                 "description": "The storage account name can contain only lowercase letters and numbers. Name must be between 1 and 11 characters"
             }
         },
-        "sqlAdministratorLogin": {
+        "useExistingOrNewKeyVault": {
+            "allowedValues": [ "new", "existing" ],
             "type": "string",
-            "defaultValue": "masteruser",
             "metadata": {
-                "description": "Your login name must not contain a SQL Identifier or a typical system name (like admin, administrator, sa, root, dbmanager, loginmanager, etc.) or a built-in database user or role (like dbo, guest, public, etc.)"
+                "description": "Do you want to create new key vault resource or want to  use same key vault account?"
             }
         },
-        "sqlAdministratorLoginPassword": {
+
+        "keyVaultName": {
+            "type": "string",
+            "defaultValue": "keyvault",
+            "metadata": {
+                "description": "Specifies the name of the key vault."
+            }
+        },
+        
+        "resourceGroupNameForKeyVault": {
+            "type": "string",
+            "defaultValue":"[resourceGroup().name]",
+            "metadata": {
+                "description": "Specifies the resource group name to get the application id in keyvault."
+            }
+        },
+
+        "secretName": {
+            "type": "string",
+            "defaultValue": "sasurisecret",
+            "metadata": {
+                "description": "Specifies the name of the secret that you want to create."
+            }
+        },
+        "secretValue": {
             "type": "securestring",
-            "defaultValue": "DemoCustomer2020!@#$",
             "metadata": {
-                "description": "Your password must be at least 8 characters in length. Your password must contain characters from three of the following categories – English uppercase letters, English lowercase letters, numbers (0-9), and non-alphanumeric characters (!, $, #, %, etc.) Your password cannot contain all or part of the login name. Part of a login name is defined as three or more consecutive alphanumeric characters."
+                "description": "Specifies the value of the secret that you want to create."
             }
         },
-        "allowAzureServicesToAccessSqlServer": {
-            "defaultValue": true,
-            "type": "bool",
-            "metadata": {
-                "description": "By selecting Yes option, it allow Azure services to access SQL server. It is required so that Azure Data Factory can access SQL server "
-            }
-        },
-        "sqlConnectionType": {
-            "defaultValue": "Default",
-            "allowedValues": [
-                "Default",
-                "Redirect",
-                "Proxy"
-            ],
+
+        "enableMicrosoftTeamsNotification":{
+            "allowedValues": [ "Yes", "No" ],
             "type": "string",
             "metadata": {
-                "description": "SQL logical server connection type."
+                "description": "Do you want to create new storage account or use same storage account?"
             }
+
         },
-        "sqlDBName": {
-            "type": "string",
-            "defaultValue": "democustomersqldb",
-            "metadata": {
-                "description": "Value should not match special patterns. It should contain a length of maximum of 128."
-            }
-        },
-        "dataWarehouseName": {
-            "type": "string",
-            "defaultValue": "democustomerdw",
-            "metadata": {
-                "description": "Value should not match special patterns. It should contain a length of maximum of 128."
-            }
-        },
-        "transparentDataEncryption": {
-            "defaultValue": "Enabled",
-            "type": "string",
-            "allowedValues": [
-                "Enabled",
-                "Disabled"
-            ],
-            "metadata": {
-                "description": "Enable/Disable Transparent Data Encryption"
-            }
-        },
-        "serviceLevelObjective": {
-            "defaultValue": "DW100c",
-            "type": "string",
-            "metadata": {
-                "description": "DW100c is the most basic/smallest data warehouse compute tier. Max value can be upto DW30000c"
-            }
-        },
-          "notificationEmail": {
-            "type": "string",
-            "defaultValue": "",
-            "metadata": {
-                "description": "Please specify a single email address where you would like to receive ADF Pipeline alerts."
-            }
-        },
-        "enableMicrosoftTeamsNotification": {
-            "defaultValue": "Yes",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
-            "type": "string"
-        },
+
         "logicAppName": {
-            "defaultValue": "TeamsNotify",
-            "type": "String"
-        },
-        "deployAndUseDataShare": {
-            "type": "string",
-            "allowedValues": [
-                "Yes",
-                "No"
-            ],
+            "defaultValue": "MSTeamsNotifications",
+            "type": "String",
             "metadata": {
-                "description": "Please select Yes if you have enabled/deployed data share in public environment."
+            "description": "The name can only contain letters, numbers, and '-', '(', ')', '_' or '.'"
+                }
             },
-            "defaultValue": "No"
-        },
-        "dataShareAccountName": {
-            "type": "string",
-            "defaultValue": "demo_customer_datashare",
+        "actionGroupsName": {
+            "defaultValue": "NotificationAlert",
+            "type": "String",
             "metadata": {
-                "description": "Data share account name should have length of 1 - 77, and cannot contain <>%&:\\?/#*$^();,.|-+={}[]!~@"
+                "description": "The name can contain letters, numbers, and special characters, this can start or end with any number, letter or other special charactor"
+                }
+            },
+        "emailForAlerts": {
+            "defaultValue": "assadullah@emumba.com",
+            "type": "String"
             }
-        }
-    },
+},
+
     "variables": {
-        "databaseCollation": "SQL_Latin1_General_CP1_CI_AS",
         "storageAccountUniqueName": "[toLower(concat(parameters('storageAccountName'), uniqueString(resourceGroup().id)))]",
-        "sqlServerUniqueName": "[concat(parameters('sqlServerName'), uniqueString(resourceGroup().id))]",
-        "dataFactoryUniqueName": "[concat(parameters('dataFactoryName'), uniqueString(resourceGroup().id))]",
+        "dataFactoryUniqueName": "[concat(parameters('factoryName'), uniqueString(resourceGroup().id))]",
+        "keyVaultUniqueName": "[concat(parameters('keyVaultName'), uniqueString(resourceGroup().id))]",
         "webHookUri": "",
-        "dataShareAccountName": "[concat(parameters('dataShareAccountName'), uniquestring(resourceGroup().id))]",
-        "stagingContainer": "receivedcopy",
-        "storageTemplateUri": "https://raw.githubusercontent.com/ayesha-kr/covid-one-click-deployment/master/datasets/covid-19/british-columbia/customer/templates/storageAccount/azuredeploy.json",
-        "sqlServerTemplateUri": "https://raw.githubusercontent.com/ayesha-kr/covid-one-click-deployment/master/datasets/covid-19/british-columbia/customer/templates/sqlServer/azuredeploy.json",
-        "logicAppTemplateUri": "https://raw.githubusercontent.com/ayesha-kr/covid-one-click-deployment/master/datasets/covid-19/british-columbia/customer/templates/logicApp/azuredeploy.json",
-        "azureDataFactoryTemplateWithTeamsNotifUri": "https://raw.githubusercontent.com/ayesha-kr/covid-one-click-deployment/master/datasets/covid-19/british-columbia/customer/templates/dataFactory/azuredeploy.json",
-        "azureDataFactoryTemplateWithoutTeamsNotifUri": "https://raw.githubusercontent.com/ayesha-kr/covid-one-click-deployment/master/datasets/covid-19/british-columbia/customer/templates/dataFactory/azuredeploy.json",
-        "dataShareTemplateUri": "https://raw.githubusercontent.com/ayesha-kr/covid-one-click-deployment/master/datasets/covid-19/british-columbia/customer/templates/dataShare/azuredeploy.json"
+        "storageTemplateUri": "https://raw.githubusercontent.com/assadullah96/customerenvironment/assad-dev/customer/templates/storageAccount/azuredeploy.json",
+        "logicAppTemplateUri": "https://raw.githubusercontent.com/assadullah96/customerenvironment/assad-dev/customer/templates/logicApp/azuredeploy.json",
+        "azureDataFactoryTemplateWithTeamsNotifUri": "https://raw.githubusercontent.com/assadullah96/customerenvironment/assad-dev/customer/templates/dataFactory/azuredeploy.json",
+        "azureDataFactoryTemplateWithoutTeamsNotifUri": "https://raw.githubusercontent.com/assadullah96/customerenvironment/assad-dev/customer/templates/dataFactory/azuredeploy.json"
     },
     "resources": [
         {
@@ -185,61 +127,13 @@
                     "location": {
                         "value": "[parameters('location')]"
                     },
-                    "stagingContainer": {
-                        "value": "[variables('stagingContainer')]"
+                    "existingOrNewStorage": {
+                        "value": "[parameters('existingOrNewStorage')]"
                     }
                 }
             }
         },
-        {
-            "name": "sqlServerTemplate",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2018-05-01",
-            "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments','storageTemplate')]"
-            ],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('sqlServerTemplateUri')]"
-                },
-                "parameters": {
-                    "sqlServerName": {
-                        "value": "[variables('sqlServerUniqueName')]"
-                    },
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "sqlAdministratorLogin": {
-                        "value": "[parameters('sqlAdministratorLogin')]"
-                    },
-                    "sqlAdministratorLoginPassword": {
-                        "value": "[parameters('sqlAdministratorLoginPassword')]"
-                    },
-                    "allowAzureServicesToAccessSqlServer": {
-                        "value": "[parameters('allowAzureServicesToAccessSqlServer')]"
-                    },
-                    "sqlConnectionType": {
-                        "value": "[parameters('sqlConnectionType')]"
-                    },
-                    "sqlDBName": {
-                        "value": "[parameters('sqlDBName')]"
-                    },
-                    "dataWarehouseName": {
-                        "value": "[parameters('dataWarehouseName')]"
-                    },
-                    "transparentDataEncryption": {
-                        "value": "[parameters('transparentDataEncryption')]"
-                    },
-                    "serviceLevelObjective": {
-                        "value": "[parameters('serviceLevelObjective')]"
-                    },
-                    "selectDataLoader": {
-                        "value": "[parameters('selectDataLoader')]"
-                    }
-                }
-            }
-        },
+
         {
             "condition": "[equals(parameters('enableMicrosoftTeamsNotification'),'Yes')]",
             "name": "logicAppTemplate",
@@ -266,7 +160,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2018-05-01",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments','sqlServerTemplate')]",
+                "[resourceId('Microsoft.Resources/deployments','storageTemplate')]",  
                 "[resourceId('Microsoft.Resources/deployments','logicAppTemplate')]"
             ],
             "properties": {
@@ -275,44 +169,35 @@
                     "uri": "[variables('azureDataFactoryTemplateWithTeamsNotifUri')]"
                 },
                 "parameters": {
-                    "dataFactoryName": {
+                    "factoryName": {
                         "value": "[variables('dataFactoryUniqueName')]"
-                    },
-                    "dataFactoryLocation": {
-                        "value": "[parameters('dataFactoryLocation')]"
-                    },
-                    "storageAccountName": {
-                        "value": "[variables('storageAccountUniqueName')]"
-                    },
-                    "sasURI": {
-                        "value": "[parameters('sasURI')]"
-                    },
-                    "sqlServerName": {
-                        "value": "[variables('sqlServerUniqueName')]"
                     },
                     "location": {
                         "value": "[parameters('location')]"
                     },
-                    "sqlAdministratorLogin": {
-                        "value": "[parameters('sqlAdministratorLogin')]"
+                    "storageAccountName": {
+                        "value": "[variables('storageAccountUniqueName')]"
                     },
-                    "sqlAdministratorLoginPassword": {
-                        "value": "[parameters('sqlAdministratorLoginPassword')]"
+                    "useExistingOrNewKeyVault":{
+                         "value": "[parameters('useExistingOrNewKeyVault')]"
                     },
-                    "sqlDBName": {
-                        "value": "[parameters('sqlDBName')]"
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
                     },
-                    "dataWarehouseName": {
-                        "value": "[parameters('dataWarehouseName')]"
+                    "secretName": {
+                        "value": "[parameters('secretName')]"
                     },
-                    "selectDataLoader": {
-                        "value": "[parameters('selectDataLoader')]"
+                    "secretValue": {
+                        "value": "[parameters('secretValue')]"
                     },
-                    "deployAndUseDataShare": {
-                        "value": "[parameters('deployAndUseDataShare')]"
+                    "actionGroupsName": {
+                        "value": "[parameters('actionGroupsName')]"
                     },
-                    "notificationEmail": {
-                        "value": "[parameters('notificationEmail')]"
+                    "emailForAlerts": {
+                        "value": "[parameters('emailForAlerts')]"
+                    },
+                    "resourceGroupNameForKeyVault":{
+                        "value": "[parameters('resourceGroupNameForKeyVault')]"
                     },
                     "webHookUri": {
                         "value": "[if(equals(parameters('enableMicrosoftTeamsNotification'),'Yes'), reference('logicAppTemplate','2018-05-01').outputs.WebHookURI.value, 'http://example.com')]"
@@ -326,7 +211,7 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2018-05-01",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/deployments','sqlServerTemplate')]"
+                "[resourceId('Microsoft.Resources/deployments','storageTemplate')]"         
             ],
             "properties": {
                 "mode": "Incremental",
@@ -334,71 +219,32 @@
                     "uri": "[variables('azureDataFactoryTemplateWithoutTeamsNotifUri')]"
                 },
                 "parameters": {
-                    "dataFactoryName": {
+                     "factoryName": {
                         "value": "[variables('dataFactoryUniqueName')]"
                     },
-                    "dataFactoryLocation": {
-                        "value": "[parameters('dataFactoryLocation')]"
+                    "location": {
+                        "value": "[parameters('location')]"
                     },
                     "storageAccountName": {
                         "value": "[variables('storageAccountUniqueName')]"
                     },
-                    "sasURI": {
-                        "value": "[parameters('sasURI')]"
+                    "useExistingOrNewKeyVault":{
+                         "value": "[parameters('useExistingOrNewKeyVault')]"
                     },
-                    "sqlServerName": {
-                        "value": "[variables('sqlServerUniqueName')]"
+                    "keyVaultName": {
+                        "value": "[parameters('keyVaultName')]"
                     },
-                    "location": {
-                        "value": "[parameters('location')]"
+                    "secretName": {
+                        "value": "[parameters('secretName')]"
                     },
-                    "sqlAdministratorLogin": {
-                        "value": "[parameters('sqlAdministratorLogin')]"
+                    "actionGroupsName": {
+                        "value": "[parameters('actionGroupsName')]"
                     },
-                    "sqlAdministratorLoginPassword": {
-                        "value": "[parameters('sqlAdministratorLoginPassword')]"
+                    "emailForAlerts": {
+                        "value": "[parameters('emailForAlerts')]"
                     },
-                    "sqlDBName": {
-                        "value": "[parameters('sqlDBName')]"
-                    },
-                    "dataWarehouseName": {
-                        "value": "[parameters('dataWarehouseName')]"
-                    },
-                    "selectDataLoader": {
-                        "value": "[parameters('selectDataLoader')]"
-                    },
-                    "notificationEmail": {
-                        "value": "[parameters('notificationEmail')]"
-                    },
-                    "deployAndUseDataShare": {
-                        "value": "[parameters('deployAndUseDataShare')]"
-                    },
-                  
                     "webHookUri": {
                         "value": "http://example.com"
-                    }
-                }
-            }
-        },
-        {
-            "name": "dataShareTemplate",
-            "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2018-05-01",
-            "dependsOn": [],
-            "properties": {
-                "mode": "Incremental",
-                "templateLink": {
-                    "uri": "[variables('dataShareTemplateUri')]"
-                },
-                "parameters": {
-                    "dataShareAccountName": {
-                        "value": "[variables('dataShareAccountName')]"
-                    },
-                    "location": {
-                        "value": "[parameters('location')]"
-                    },
-                    "deployAndUseDataShare": {
-                        "value": "[parameters('deployAndUseDataShare')]"
                     }
                 }
             }

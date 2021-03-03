@@ -1,12 +1,12 @@
 {
-  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "factoryName": {
         "type": "string",
         "metadata": {
           "description": "The name of data factory can contain only letters, numbers and hyphens. The first and last characters must be a letter or number. Spaces are not allowed."
-        },
+        }
     },
     "location": {
         "type": "string",
@@ -20,6 +20,11 @@
         "metadata": {
           "description": "The storage account name can contain only lowercase letters and numbers. Name must be between 1 and 11 characters"
           }
+        },
+
+    "useExistingOrNewKeyVault": {
+        "allowedValues": [ "new", "existing" ],
+        "type": "string"
         },
 
     "keyVaultName": {
@@ -84,6 +89,7 @@
     },
 
     {
+            "condition": "[equals(parameters('useExistingOrNewKeyVault'),'new')]",  
             "type": "Microsoft.KeyVault/vaults",
             "apiVersion": "2016-10-01",
             "name": "[parameters('keyVaultName')]",
@@ -119,6 +125,7 @@
         },
 
     {
+          "condition": "[equals(parameters('useExistingOrNewKeyVault'),'new')]", 
           "type": "Microsoft.KeyVault/vaults/secrets",
           "apiVersion": "2019-09-01",
           "name": "[concat(parameters('keyVaultName'), '/', parameters('secretName'))]",
@@ -129,10 +136,8 @@
           "properties": {
             "value": "[parameters('secretValue')]"
           }
-        },
-
-
-    
+    },
+     
         {
             "name": "[concat(parameters('factoryName'), '/publicToCustomerEnvironmentCopyData')]",
             "type": "Microsoft.DataFactory/factories/pipelines",
