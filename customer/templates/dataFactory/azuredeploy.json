@@ -65,8 +65,7 @@
         "type": "String"
         },
     "StartDate":{
-        "type": "string",
-        "defaultValue": "[utcNow()]"
+        "type": "string"
     },
 
      "webHookUri": {
