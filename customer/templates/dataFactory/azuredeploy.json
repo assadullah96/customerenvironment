@@ -137,36 +137,7 @@
             "value": "[parameters('secretValue')]"
           }
     },
-    
-    {
-        "condition": "[equals(parameters('useExistingOrNewKeyVault'),'existing')]",  
-        "type": "Microsoft.KeyVault/vaults/accessPolicies",
-        "name": "[concat(parameters('keyVaultName'), '/add')]",
-        "apiVersion": "2019-09-01",
-        "properties": {
-            "accessPolicies": [
-            {
-                "tenantId": "[subscription().tenantId]",
-                "objectId": "[reference(ResourceId(parameters('resourceGroupNameForKeyVault'), 'Microsoft.DataFactory/factories', parameters('factoryName')),'2018-06-01','Full').identity.principalId]",
-                "permissions": {
-                    "keys": [],
-                    "secrets": [
-                        "Get"
-                        ],
-                    "certificates": []
-                }
-            }
-            ]
-        },
-        "dependsOn":[
-                "[parameters('factoryName')]",
-                "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
-            ]
-    },
-
-
-    
-    
+     
         {
             "name": "[concat(parameters('factoryName'), '/publicToCustomerEnvironmentCopyData')]",
             "type": "Microsoft.DataFactory/factories/pipelines",
