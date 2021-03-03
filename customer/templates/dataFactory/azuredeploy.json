@@ -85,7 +85,11 @@
             "properties": {},
             "identity": {
                 "type": "SystemAssigned"
-                 }
+            },
+            "tags": {
+                "Environment": "Customer",
+                "AssociatedDataSet": "USAFactsKnownCases"
+            }
     },
 
     {
@@ -139,7 +143,7 @@
     },
      
         {
-            "name": "[concat(parameters('factoryName'), '/publicToCustomerEnvironmentCopyData')]",
+            "name": "[concat(parameters('factoryName'), '/USAFactsKnownCases_publicToCustomerEnvironmentCopyData')]",
             "type": "Microsoft.DataFactory/factories/pipelines",
             "apiVersion": "2018-06-01",
             "properties": {
@@ -243,8 +247,8 @@
                                 "type": "DatasetReference",
                                 "parameters": {
                                     "container": "customer",
-                                    "directory": "curated/USA_known_cases/latest",
-                                    "file": "USA_known_cases.csv"
+                                    "directory": "curated/USAFactsKnownCases/latest",
+                                    "file": "USAFactsKnownCases.csv"
                                 }
                             },
                             "fieldList": [
@@ -592,8 +596,8 @@
                                 "type": "DatasetReference",
                                 "parameters": {
                                     "container": "customer",
-                                    "directory": "curated/USA_known_cases/latest",
-                                    "file": "USA_known_cases.csv"
+                                    "directory": "curated/USAFactsKnownCases/latest",
+                                    "file": "USAFactsKnownCases.csv"
                                 }
                             }
                         ],
@@ -635,7 +639,7 @@
                 "runtimeState": "Stopped",
                 "pipeline": {
                     "pipelineReference": {
-                        "referenceName": "publicToCustomerEnvironmentCopyData",
+                        "referenceName": "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
                         "type": "PipelineReference"
                     },
                     "parameters": {}
@@ -655,7 +659,7 @@
             },
             "dependsOn": [
                 "[parameters('factoryName')]",
-                "[concat(variables('factoryId'), '/pipelines/publicToCustomerEnvironmentCopyData')]"
+                "[concat(variables('factoryId'), '/pipelines/USAFactsKnownCases_publicToCustomerEnvironmentCopyData')]"
             ]
         },
 
@@ -674,7 +678,7 @@
                     }
                 },
                 "folder": {
-                    "name": "JLL/USAFactsknowncases-dataset/Sinks"
+                    "name": "JLL/USAFactsKnownCases-dataset/Sinks"
                 },
                 "annotations": [],
                 "type": "DelimitedText",
@@ -713,7 +717,7 @@
                     }
                 },
                 "folder": {
-                    "name": "JLL/USAFactsknowncases-dataset/Sources"
+                    "name": "JLL/USAFactsKnownCases-dataset/Sources"
                 },
                 "annotations": [],
                 "type": "DelimitedText",
@@ -760,7 +764,7 @@
                     }
                 },
                 "folder": {
-                    "name": "JLL/USAFactsknowncases-dataset/Schema"
+                    "name": "JLL/USAFactsKnownCases-dataset/Schema"
                 },
                 "annotations": [],
                 "type": "DelimitedText",
@@ -807,15 +811,15 @@
                     },
                     "directory": {
                         "type": "string",
-                        "defaultValue": "curated/USA_known_cases/latest"
+                        "defaultValue": "curated/USAFactsKnownCases/latest"
                     },
                     "file": {
                         "type": "string",
-                        "defaultValue": "USA_known_cases.csv"
+                        "defaultValue": "USAFactsKnownCases.csv"
                     }
                 },
                 "folder": {
-                    "name": "JLL/USAFactsknowncases-dataset/Sources"
+                    "name": "JLL/USAFactsKnownCases-dataset/Sources"
                 },
                 "annotations": [],
                 "type": "DelimitedText",
@@ -895,7 +899,7 @@
                     }
                 },
                 "folder": {
-                    "name": "JLL/USAFactsknowncases-dataset/Schema"
+                    "name": "JLL/USAFactsKnownCases-dataset/Schema"
                 },
                 "annotations": [],
                 "type": "DelimitedText",
@@ -1093,8 +1097,8 @@
                                     "name": "PipelineName",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 }
                             ],
@@ -1158,8 +1162,8 @@
                                     "name": "PipelineName",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 },
                                 {
@@ -1216,8 +1220,8 @@
                                     "name": "Name",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 }
                             ],
@@ -1265,8 +1269,8 @@
                                     "name": "Name",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 },
                                 {
@@ -1323,8 +1327,8 @@
                                     "name": "Name",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 }
                             ],
@@ -1386,8 +1390,8 @@
                                     "name": "PipelineName",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 },
                                 {
@@ -1456,8 +1460,8 @@
                                     "name": "PipelineName",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 },
                                 {
@@ -1526,8 +1530,8 @@
                                     "name": "PipelineName",
                                     "operator": "Include",
                                     "values": [
-                                        "publicToCustomerEnvironmentCopyData",
-                                        "publicToCustomerEnvironmentCopyData_tumblingWindow"
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData",
+                                        "USAFactsKnownCases_publicToCustomerEnvironmentCopyData_tumblingWindow"
                                     ]
                                 },
                                 {
