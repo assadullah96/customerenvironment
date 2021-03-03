@@ -20,6 +20,10 @@
             "type": "Microsoft.Web/connections",
             "apiVersion": "2016-06-01",
             "name": "msftTeamsConnectionAuth",
+            "tags": {
+                "Environment": "Customer",
+                "AssociatedDataSet": "USAFactsKnownCases"
+            },
             "location": "eastus",
             "kind": "V1",
             "properties": {
@@ -39,6 +43,10 @@
             "dependsOn": [
                 "[resourceId('Microsoft.Web/connections', 'msftTeamsConnectionAuth')]"
             ],
+            "tags": {
+                "Environment": "Customer",
+                "AssociatedDataSet": "USAFactsKnownCases"
+            },
             "properties": {
                 "state": "Enabled",
                 "definition": {
