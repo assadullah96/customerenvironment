@@ -252,6 +252,9 @@
                     "emailForAlerts": {
                         "value": "[parameters('emailForAlerts')]"
                     },
+                    "resourceGroupNameForKeyVault":{
+                        "value": "[parameters('resourceGroupNameForKeyVault')]"
+                    },
                      "StartDate":{
                         "value": "[parameters('StartDate')]"
                     },
