@@ -246,7 +246,7 @@
                     "secretName": {
                         "value": "[parameters('secretName')]"
                     },
-                     "secretValue": {
+                    "secretValue": {
                         "value": "[parameters('secretValue')]"
                     },
                     "actionGroupsName": {
