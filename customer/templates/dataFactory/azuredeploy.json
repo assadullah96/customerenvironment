@@ -532,8 +532,8 @@
                                 "type": "DatasetReference",
                                 "parameters": {
                                     "container": "schemadetection",
-                                    "fileName": "get_previous_dataset_copy",
-                                    "directory": "get_previous_dataset_copy.csv"
+                                    "fileName": "get_previous_dataset_copy.csv",
+                                    "directory": "get_previous_dataset_copy"
                                 }
                             }
                         ]
